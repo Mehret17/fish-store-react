@@ -5,8 +5,8 @@ import './Inventory.css';
 class Inventory extends React.Component {
   render () {
     return (
-      <div className="inventory text-center">
-      <h2>Inventory</h2>
+      <div className="Inventory">
+      <h1>Inventory</h1>
       </div>
     );
   }

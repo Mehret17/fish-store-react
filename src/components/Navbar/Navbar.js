@@ -5,8 +5,8 @@ import './Navbar.css';
 class Navbar extends React.Component {
   render () {
     return (
-      <div className="navbar text-center">
-      <h2>Navbar</h2>
+      <div className="Navbar">
+      <h1>Navbar</h1>
       </div>
     );
   }
