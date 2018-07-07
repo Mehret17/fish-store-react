@@ -6,7 +6,7 @@ class Order extends React.Component {
   render () {
     return (
       <div className="order text-center">
-      <h2>Order</h2>
+      <h1>Order</h1>
       </div>
     );
   }
