@@ -17,7 +17,7 @@ class Home extends React.Component {
                 </span>
                 Day
         </h1>
-              <h3 className="tgaline">
+              <h3 className="tagline">
                 <span>Fresh Seafood Market</span>
               </h3>
             </header>
