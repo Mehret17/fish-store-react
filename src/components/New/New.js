@@ -11,43 +11,46 @@ class New extends React.Component {
     fishes: [],
     order: {},
   };
-  
+
   addToOrder = (key) => {
-    const newOrder = {...this.state.order};
+    const newOrder = { ...this.state.order };
     newOrder[key] = newOrder[key] + 1 || 1;
-    this.setState({ order: newOrder});
+    this.setState({ order: newOrder });
   }
 
-  componentDidMount () {
+  componentDidMount() {
     fishRequests
       .getRequest()
       .then((fishes) => {
-        this.setState({fishes: fishes});
+        this.setState({ fishes: fishes });
       })
       .catch((err) => {
         console.error('error with fish get request', err);
       })
   }
 
-  render () {
+  render() {
     const fishComponets = this.state.fishes.map((fish) => {
       return (
-        <Fish 
+        <Fish
           key={fish.id}
-          details= {fish}
+          details={fish}
           addToOrder={this.addToOrder}
         />
       );
     });
     return (
       <div className="New">
-      <div className="col-xs-8 inventory-container">
-      <h2>Inventory</h2>
-      <ul className="fishes">
-        {fishComponets}
-       </ul>
-       </div>
-       <Order />
+        <div className="col-xs-8 inventory-container">
+          <h2>Inventory</h2>
+          <ul className="fishes">
+            {fishComponets}
+          </ul>
+        </div>
+        <Order
+          fishes={this.state.fishes}
+          order={this.state.order}
+        />
       </div>
     );
   }
