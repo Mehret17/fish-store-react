@@ -1,4 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import moment from 'moment';
+
 import orderRequests from '../../firebaseRequests/orders';
 import authRequests from '../../firebaseRequests/auth';
 
@@ -15,19 +18,25 @@ class OrderSpa extends React.Component {
         this.setState({orders}); //({fishes}) object shorthand notation
       })
       .catch((err) => {
-        console.error('error with fish get request', err);
+        console.error('error with order get request', err);
       })
   }
   render() {
     const orderComponents = this.state.orders.map((order) => {
       return (
-      <button>{order.id}</button>
+      <button
+      key={order.id}
+      className="col-xs-12 btn btn-default order-button"
+      >
+      <span className="col-xs-6">Order Number: {order.id}</span>
+      <span className="col-xs-6">Order Date: {moment(order.dteTime).format('LLL')}</span>
+      </button>
       );
     })
     return (
-      <div className="OrderSpa">
+      <div className="OrderSpa col-xs-12">
         <h2>Orders</h2>
-        <button>New Order</button>
+        <button><Link to="/new">New Order</Link></button>
         <ul>
           {orderComponents}
         </ul>
