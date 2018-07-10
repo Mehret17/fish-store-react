@@ -11,12 +11,18 @@ class New extends React.Component {
     fishes: [],
     order: {},
   };
+  
+  addToOrder = (key) => {
+    const newOrder = {...this.state.order};
+    newOrder[key] = newOrder[key] + 1 || 1;
+    this.setState({ order: newOrder});
+  }
 
   componentDidMount () {
     fishRequests
       .getRequest()
       .then((fishes) => {
-        this.setState({fishes: fishes}); //({fishes}) object shorthand notation
+        this.setState({fishes: fishes});
       })
       .catch((err) => {
         console.error('error with fish get request', err);
@@ -29,6 +35,7 @@ class New extends React.Component {
         <Fish 
           key={fish.id}
           details= {fish}
+          addToOrder={this.addToOrder}
         />
       );
     });
