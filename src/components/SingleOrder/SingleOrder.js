@@ -1,15 +1,35 @@
 import React from 'react';
-// import moment from 'moment';
+import moment from 'moment';
 
 import orderRequests from '../../firebaseRequests/orders';
-// import fishRequests from '../../firebaseRequests/fishes';
+import fishRequests from '../../firebaseRequests/fishes';
 
 // import formatPrice from '../../helpers';
 
 import './SingleOrder.css';
 
 class SingleOrder extends React.Component {
+  state = {
+    order: {},
+    fish: []
+  }
 
+  componentDidMount () {
+    const firebaseId = this.props.match.params.id;
+    orderRequests
+     .getSingleRequest(firebaseId)
+     .then((order) => {
+       this.setState({order});
+       fishRequests
+        .getRequest()
+        .then((fishes) => {
+          this.setState({fishes});
+        });
+     })
+     .catch(((err) => {
+     console.error('error with get single request', err);
+     }))
+  }
   deleteOrderClick = () => {
     const firebaseId = this.props.match.params.id;
     orderRequests
@@ -23,10 +43,13 @@ class SingleOrder extends React.Component {
   }
 
   render () {
+    const {order} = this.state;
+    const orderNumber = this.props.match.params.id;
+
     return (
       <div className="SingleOrder col-xs-12 text-center">
-        <h2>Order Number: </h2>
-        <h4>Order Date:</h4>
+        <h2>Order Number: {orderNumber}</h2>
+        <h4>Order Date:{moment(order.dateTime).format('LLL')}</h4>
         <div className="row fishes">
           <div className="col-xs-8 col-xs-offset-2">
             {/* <ul>{fishComponents}</ul> */}
