@@ -7,6 +7,9 @@ class Order extends React.Component {
   renderOrder = (key) => {
     const fish = this.props.fishes.find(x => x.id === key);
     const count = this.props.order[key];
+    const xClickFunction = () => {
+      this.props.removeFromOrder(key);
+    };
 
     return (
       <li
@@ -17,7 +20,7 @@ class Order extends React.Component {
         <div className="col-xs-5">{fish.name} </div>
         <div className="col-sx-3">{formatPrice(fish.price)}</div>
         <div className="col-sx-2">
-          <button className="btn btn-default">&times;</button>
+          <button className="btn btn-default" onClick={xClickFunction}>&times;</button>
         </div>
       </li>
 
@@ -30,7 +33,7 @@ class Order extends React.Component {
       const fish = this.props.fishes.find(x => x.id === key);
       const count = this.props.order[key];
       const isAvailable = fish && fish.status === 'available';
-      if(isAvailable) {
+      if (isAvailable) {
         return prevTotal + count * fish.price;
       }
       return prevTotal;
